@@ -4,9 +4,10 @@ from .views import *
 
 
 urlpatterns = [
-    path('', index),
-    path('cats/<int:catid>/', categories),
-    re_path(r'^archive/(?P<year>[0-9]){4}', archive),
     path('', index, name='home'),
     path('about/', about, name='about'),
+    path('post/<slug:post_slug>/', show_post, name='post'),
+    path('style/<int:style_id>/', show_category, name='category'),
 ]
+
+
