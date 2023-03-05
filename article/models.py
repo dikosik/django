@@ -8,6 +8,8 @@ class Article(models.Model):
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=True)
 
+def __str__(self):
+    return self.title
 class Styles(models.Model):
     style_name = models.CharField(max_length=255, db_index=True)
 
