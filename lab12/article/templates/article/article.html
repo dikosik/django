@@ -1,0 +1,51 @@
+{% block content %}
+
+<div>
+    <div>
+        <h1>{{article.title}}</h1>
+    </div>
+    <div class="book-content">
+        <div>
+            <img class="book_image" src="{{article.photo.url}}">
+        </div>
+        <div class="book-description">
+            <div>
+                <span class="bold-text">Style:</span> {{article.style.style_name}}
+            </div>
+            <div>
+                <span class="bold-text">Год выпуска:</span> {{article.is_published}}
+            </div>
+            <div>
+                {{article.content|linebreaks}}
+            </div>
+        </div>
+    </div>
+    <div class="comment">
+
+        <div class="comment">Комментарии</div>
+        <div class="comments">
+
+
+             <form action="{% url 'create_comment' pk=article.pk %}" method="post">
+                        {% csrf_token %}
+                        <div>
+                            {{ form.comment_text }}
+                        </div>
+                 {% if request.user.is_authenticated %}
+                        <input type="hidden" name="user" value="{{user.username}}">
+                        <input type="hidden" name="article" value="{{article.id}}">
+                 {% endif %}
+
+                        {% if request.user.is_authenticated %}
+                        <div class="button-c">
+                            <button class="submit-comment" type="submit">Отправить</button>
+                        </div>
+                        {% else %}
+                        <div>Авторизируйтесь, что бы оставить комментарий</div>
+                        {% endif %}
+                    </form>
+
+            </div>
+    </div>
+</div>
+{% endblock %}
